@@ -1,0 +1,4 @@
+config,avg_score,avg_sources,avg_reflections,avg_runtime_sec
+full,8.166666666666666,0.0,0.25,84.12833333333333
+planner_browser,7.5,0.0,0.0,67.8975
+planner_only,7.25,0.0,0.0,66.34416666666667

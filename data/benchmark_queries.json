@@ -1,0 +1,14 @@
+[
+  {"id": 1, "query": "What are the main causes of coral bleaching and which interventions are most effective?"},
+  {"id": 2, "query": "Compare lithium-ion and sodium-ion batteries for grid storage in 2026."},
+  {"id": 3, "query": "How does intermittent fasting affect insulin sensitivity based on recent evidence?"},
+  {"id": 4, "query": "What are the trade-offs of small modular nuclear reactors versus renewables?"},
+  {"id": 5, "query": "What is retrieval-augmented generation and when does it fail?"},
+  {"id": 6, "query": "Summarize the strongest evidence for microplastics impacts on human health."},
+  {"id": 7, "query": "What policies most effectively reduce urban PM2.5 air pollution?"},
+  {"id": 8, "query": "Explain differential privacy for public-sector data release with examples."},
+  {"id": 9, "query": "How do heat pumps compare with gas furnaces in lifecycle cost and emissions?"},
+  {"id": 10, "query": "What are key methods for evaluating factuality in large language models?"},
+  {"id": 11, "query": "What are practical steps for securing software supply chains in CI/CD?"},
+  {"id": 12, "query": "How effective are mRNA vaccines against evolving respiratory viruses?"}
+]
