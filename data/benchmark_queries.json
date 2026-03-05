@@ -8,7 +8,7 @@
   {"id": 7, "query": "What policies most effectively reduce urban PM2.5 air pollution?"},
   {"id": 8, "query": "Explain differential privacy for public-sector data release with examples."},
   {"id": 9, "query": "How do heat pumps compare with gas furnaces in lifecycle cost and emissions?"},
-  {"id": 10, "query": "What are key methods for evaluating factuality in large language models?"},
-  {"id": 11, "query": "What are practical steps for securing software supply chains in CI/CD?"},
-  {"id": 12, "query": "How effective are mRNA vaccines against evolving respiratory viruses?"}
+  {"id": 10, "query": "How do retrieval-augmented generation methods improve LLM factuality, and what failure modes still remain in production?"},
+  {"id": 11, "query": "How do software supply chain attacks propagate through CI/CD pipelines, and which controls most effectively reduce real-world blast radius?"},
+  {"id": 12, "query": "How do spike-protein mutations affect mRNA vaccine effectiveness over time, and how should booster policy adapt to that evidence?"}
 ]
