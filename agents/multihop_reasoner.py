@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import re
 from typing import Dict, List
 
 from tools.llm_client import LLMError, llm_complete
@@ -188,27 +189,49 @@ Suggestions: <improvement suggestions>
 
     try:
         raw = llm_complete(prompt)
-        
-        is_valid = "yes" in raw.lower().split("Valid:")[1].split("\n")[0] if "Valid:" in raw else False
-        
+
+        valid_match = re.search(r"^\s*Valid\s*:\s*(.+)$", raw, flags=re.IGNORECASE | re.MULTILINE)
+        is_valid = False
+        if valid_match:
+            valid_value = valid_match.group(1).strip().lower()
+            is_valid = valid_value.startswith("yes")
+
         confidence = 0.5
-        if "Confidence:" in raw:
+        confidence_match = re.search(
+            r"^\s*Confidence\s*:\s*([0-9]*\.?[0-9]+)",
+            raw,
+            flags=re.IGNORECASE | re.MULTILINE,
+        )
+        if confidence_match:
             try:
-                conf_str = raw.split("Confidence:")[1].split("\n")[0].strip()
-                confidence = float(conf_str)
-            except (ValueError, IndexError):
+                confidence = float(confidence_match.group(1))
+            except ValueError:
                 pass
-        
+
         gaps = []
         suggestions = []
-        
-        if "Gaps:" in raw:
-            gaps_section = raw.split("Gaps:")[1].split("Suggestions:")[0].strip()
-            gaps = [g.strip() for g in gaps_section.split("\n") if g.strip() and g.strip() != "None"]
-        
-        if "Suggestions:" in raw:
-            sugg_section = raw.split("Suggestions:")[1].strip()
-            suggestions = [s.strip() for s in sugg_section.split("\n") if s.strip()]
+
+        gaps_match = re.search(
+            r"^\s*Gaps\s*:\s*(.*?)(?=^\s*Suggestions\s*:|\Z)",
+            raw,
+            flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
+        )
+        if gaps_match:
+            gaps_section = gaps_match.group(1).strip()
+            gaps = [
+                g.strip("-• \t")
+                for g in gaps_section.splitlines()
+                if g.strip() and g.strip().lower() != "none"
+            ]
+
+        suggestions_match = re.search(
+            r"^\s*Suggestions\s*:\s*(.*)$",
+            raw,
+            flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
+        )
+        if suggestions_match:
+            sugg_section = suggestions_match.group(1).strip()
+            suggestions = [s.strip("-• \t") for s in sugg_section.splitlines() if s.strip()]
         
         return {
             "is_valid": is_valid,
